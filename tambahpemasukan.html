@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Input Pemasukan</title>
+    <link rel="icon" href="./aset/sisaa.jpeg">
+    <link rel="stylesheet" href="tambah.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <h2>Sisa.in</h2>
+
+    <div class="isi">
+	<header>
+		<h3>Input pemasukan</h3>
+	</header>
+
+	<form action="prosesinputpemasukan.php" method="POST" class="form">
+		<fieldset>
+    <div class="kotak">
+		<p>
+            <input type="hidden" name="username" value="<?= $id?>"   /> 
+        </p>
+		<p>
+			<label for="kategori_pemasukan">Kategori </label>
+			<input type="text" name="kategori_pemasukan" placeholder="kategori" />
+		</p>
+
+		<p>
+			<label for="nominal_pemasukan">Nominal</label>
+			<input type="number" name="nominal_pemasukan" placeholder="nominal"/>
+		</p>
+
+		<p>
+			<input type="submit" value="enter" name="enter" />
+		</p>
+    </div>
+		</fieldset>
+	</form>
+    </div>
+
+	</body>
+</html>

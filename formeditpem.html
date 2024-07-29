@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Formulir edit Pemasukan</title>
+    <link rel="icon" href="./aset/sisaa.jpeg">
+    <link rel="stylesheet" href="tambah.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <h2>Sisa.in</h2>
+
+    <div class="isi">
+        <header>
+            <h3>Edit Pemasukan</h3>
+        </header>
+
+    <form action="proseseditpem.php?username=<?=$home['username']?>" method="POST" class="form">
+        <div class="kotak">
+		<p>
+            <input type="hidden" name="username" value="<?= $id?>"   /> 
+        </p>
+		<p>
+			<label for="kategori_pemasukan">Kategori </label>
+			<input type="text" name="kategori_pemasukan" placeholder="kategori" value="<?= $amel['kategori_pemasukan']?>" />
+		</p>
+
+		<p>
+			<label for="nominal_pemasukan">Nominal</label>
+			<input type="number" name="nominal_pemasukan" placeholder="nominal" value="<?= $amel['nominal_pemasukan']?>"/>
+		</p>
+
+		<p>
+			<input type="submit" value="enter" name="enter" />
+		</p>
+    </div>
+    </form>
+    </div>
+
+</body>
+
+</html>

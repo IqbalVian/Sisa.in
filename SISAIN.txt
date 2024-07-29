@@ -1,0 +1,46 @@
+CREATE TABLE users(
+nama VARCHAR(100) NOT NULL,
+username VARCHAR(64) NOT NULL,
+telpon VARCHAR(16) NOT NULL,
+email VARCHAR(64) NOT NULL,
+pass VARCHAR(100) NOT NULL,
+CONSTRAINT username_PK PRIMARY KEY(username));
+
+CREATE TABLE pengeluaran(
+username VARCHAR(64) NOT NULL,
+Tanggal TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+kategori_pengeluaran VARCHAR(64) NOT NULL,
+item_pengeluaran VARCHAR(64) NOT NULL,
+nominal_pengeluaran INT NOT NULL,
+kuantitas_pengeluaran INT NOT NULL,
+CONSTRAINT username_FK FOREIGN KEY(username) REFERENCES users(username));
+
+
+CREATE TABLE pemasukan(
+username VARCHAR(64) NOT NULL,
+kategori_pemasukan VARCHAR(64) NOT NULL,
+Tanggal TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+nominal_pemasukan INT NOT NULL,
+CONSTRAINT username_FK FOREIGN KEY(username) REFERENCES users(username));
+
+
+CREATE TABLE rencana(
+username VARCHAR(64) NOT NULL,
+Tanggal TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+kategori_rencana VARCHAR(64) NOT NULL,
+item_rencana VARCHAR(64) NOT NULL,
+nominal_rencana INT NOT NULL,
+CONSTRAINT username_FK FOREIGN KEY(username) REFERENCES users(username));
+
+
+CREATE TABLE tabungan(
+username VARCHAR(64) NOT NULL,
+Tanggal TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+nama_tabungan VARCHAR(64) NOT NULL,
+nominal_tabungan INT NOT NULL,
+nominal_target INT NOT NULL,
+CONSTRAINT username_FK FOREIGN KEY(username) REFERENCES users(username));
+
+
+total VARCHAR(16) NOT NULL,
+total_harian VARCHAR(16) NOT NULL,

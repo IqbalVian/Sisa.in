@@ -1,0 +1,115 @@
+<?php
+error_reporting(0);
+include("config.php");
+if (isset($_GET['username'])) {
+    $id = $_GET['username'];
+    $cari = $_GET['cari'];
+    $jabatan = $_GET['jabatan'];
+    $query = pg_query($db, "SELECT * FROM userr WHERE username = '$id'");
+    $query1 = pg_query($db, "SELECT * FROM saldo WHERE username = '$id'");
+    $query3 = pg_query($db, "SELECT * FROM transaksi WHERE username = '$id'");
+    $query4 = pg_query($db, "SELECT sum(harga) FROM item WHERE username = '$id'");
+                
+    $nganu= pg_query($db, "SELECT DISTINCT jabatan FROM transaksi WHERE username = '$id' ORDER BY jabatan ASC ");
+    if ($cari=='cari'){
+        $query2 = pg_query($db, "SELECT * FROM transaksi JOIN item ON transaksi.kode_transaksi = item.kode_transaksi WHERE transaksi.username = '$id' and transaksi.jabatan='$jabatan'");
+    }
+    else{
+        $query2 = pg_query($db, "SELECT * FROM transaksi JOIN item ON transaksi.kode_transaksi = item.kode_transaksi WHERE transaksi.username = '$id'");
+    }
+    
+    
+    $siswa = pg_fetch_array($query, NULL, PGSQL_ASSOC);
+    $saldo = pg_fetch_array($query1, NULL, PGSQL_ASSOC);
+    $trans = pg_fetch_array($query3, NULL, PGSQL_ASSOC);
+    $tot = pg_fetch_array($query4, NULL, PGSQL_ASSOC);
+    
+    $totall = $saldo['jumlah_saldo'] - $tot['sum'];
+    
+    
+
+   
+} else {
+    header('Location: index.php');
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hedon(Hemat Dong)|Pencatat Pengeluaran Mahasiswa/daftar mahasiswa</title>
+</head>
+
+<body>
+	<header>
+		<h3>Catatan Pengeluaran <?= $siswa['nama_acara']?> </h3>
+	</header>
+    <form action="" method="GET">
+    <input type="hidden" name="username" value = <?= $saldo['username']?> />
+    <label for="ex"> Lihat transaksi dari : </label>
+    <select name="jabatan">
+    <option> -Pilih Divisi- </option>
+    <?php
+    while($tr = pg_fetch_array($nganu)){?>
+        
+        <option value="<?= $tr['jabatan'] ?>"> <?= $tr['jabatan']  ?></option>
+        <?php }?>
+    <select>
+        <button type="submit" name="cari" value="cari">cari </button>
+        
+        
+    </form>
+    
+    <table>
+        <tr>
+            Saldo pertanggal <?= $saldo['tanggal_masuk'] ?> : Rp. <?= number_format($saldo['jumlah_saldo'] ,2,",",".") ?>
+        </tr>
+    </table>
+    <table border="1">
+	<thead>
+		<tr>
+			<th>Tanggal Transaksi</th>
+            <th>Divisi</th>
+			<th>Nama PJ</th>
+			<th>Nama Transaksi</th>
+			<th>Harga</th>
+            <th>Hapus</th>
+		</tr>
+	</thead>
+    <tbody>
+        <?php
+            while($tr = pg_fetch_array($query2)){
+                $total += $tr['harga'];
+        ?>
+        <tr>
+            <th>
+                <?= $tr['tanggal_transaksi'] ?>
+            </th>
+            <th>
+                <?= $tr['jabatan'] ?>
+            </th>
+            <th>
+                <?= $tr['nama_pj'] ?>
+            </th>
+            <th>
+                <?= $tr['nama_transaksi'] ?>
+            </th>
+            <th>
+                Rp.<?= number_format($tr['harga'] ,2,",",".")?>
+            </th>
+            <th>
+            <a href="hapus.php?username=<?= $tr['username']?>&kode_transaksi=<?= $tr['kode_transaksi']?>">Hapus transaksi</a>
+            </th>
+        </tr>
+         <?php }?>
+        
+    </tbody>
+</table>
+<p>Total pengeluaran : Rp.<?= number_format($total ,2,",",".")?> 
+    </p>
+
+    <p>
+        Sisa Saldo pertanggal <?=date("Y-m-d");?> : Rp. <?= number_format($totall ,2,",",".")?>
+    </p>
+	<a href="index.php">Back</a>
+</body>
+</html>

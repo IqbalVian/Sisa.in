@@ -1,0 +1,78 @@
+*{
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+body{
+    background-color: #F8F3EF;
+}
+
+h2{
+    font-weight: bold;
+    font-size: 2em;
+    line-height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #E4DBC1;
+    height: 50px;
+    width: 100%;
+}
+
+h3{
+    width: 360px;
+    height: 40px;
+    background: #E4DBC1;
+    margin: 0;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+}
+
+.isi{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.form{
+    margin-top: 2%;
+}
+
+.kotak input[type = "number"],.kotak input[type = "text"]{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    background: white;
+    margin: 1em auto;
+    padding: 8px 15px 8px 10px;
+    width: 310px;
+    border-radius: 5px;  
+    outline-color: none;
+}
+
+.kotak input[type="submit"]{
+    border: 0ch;
+    background: #1A366C;
+    margin: 2px auto;
+    padding: 5px 23px 5px;
+    width: 90px;
+    color: white;
+    border: 2px solid #1A366C;
+    border-radius: 5px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.kotak input[type="submit"]:hover{
+    background: white;
+    color: #1A366C;
+    border: 2px solid #1A366C;
+    margin: auto;
+    font-weight: bold;
+}
